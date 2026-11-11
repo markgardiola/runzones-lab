@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body { @apply bg-paper font-sans text-ink antialiased; }
+  h1, h2, h3, h4 { @apply font-display tracking-tight text-ink; }
+  :focus-visible { @apply outline outline-2 outline-offset-2 outline-accent; }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .eyebrow { @apply text-xs font-medium uppercase tracking-[0.18em] text-muted; }
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-paper;
+  }
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center border px-5 py-2.5 text-sm font-medium transition-colors;
+  }
+  .btn-primary { @apply border-ink bg-ink text-paper hover:border-accent hover:bg-accent; }
+  .btn-secondary { @apply border-ink text-ink hover:bg-ink hover:text-paper; }
+  .btn-disabled { @apply cursor-not-allowed border-line text-muted; }
+  /* Running-track-inspired divider: fine parallel lane lines */
+  .track-rule {
+    height: 9px;
+    background-image: repeating-linear-gradient(to bottom, theme('colors.line') 0 1px, transparent 1px 4px);
+  }
+  .link-underline { @apply underline decoration-line underline-offset-4 hover:decoration-accent; }
+}

@@ -1,0 +1,10 @@
+node_modules
+dist
+docs
+.env
+.env.local
+.vercel
+*.log
+.DS_Store
+
+PROJECT_BRIEF.md
