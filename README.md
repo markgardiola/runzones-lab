@@ -20,5 +20,8 @@ Copy `.env.example` to `.env.local` and set `VITE_PAYPAL_DONATION_URL` to the ow
 Build command `npm run build`, output `dist`. `vercel.json` rewrites all routes to `index.html` so deep links and refresh work.
 
 ## Status
-- Phase 1 (foundation, layout, Home): done
+- Phase 1 (foundation, layout, Home): done and approved
+- Phase 2 (scientific methodology verification): done and approved (`docs/SCIENTIFIC_METHODS.md`, `docs/SOURCES.md`)
+- Phase 3 (calculation engine, zone models, validation, tests): done and approved
+- Phase 4 (calculator interface): drafted, awaiting review
 - Phases 2–8: pending approval

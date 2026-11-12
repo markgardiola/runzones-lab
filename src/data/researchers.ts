@@ -12,7 +12,7 @@ export const RESEARCHER_HIGHLIGHTS: ResearcherHighlight[] = [
   },
   {
     slug: 'karvonen',
-    name: 'M. J. Karvonen',
+    name: 'Martti Karvonen',
     descriptor: 'First author, 1957 training and heart rate study',
     topic: 'Heart rate reserve and exercise intensity',
     featured: 'The Effects of Training on Heart Rate: A Longitudinal Study (1957)',

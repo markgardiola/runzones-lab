@@ -18,8 +18,8 @@ export default function Home() {
       <section aria-labelledby="hero-heading" className="container-page grid items-center gap-10 py-16 md:grid-cols-2 md:py-24">
         <div>
           <p className="eyebrow">Heart rate training for runners</p>
-          <h1 id="hero-heading" className="mt-3 text-5xl font-medium leading-[1.05] sm:text-5xl">
-            Know Your Heart Rate, <em className="font-normal">Train With Purpose.</em>
+          <h1 id="hero-heading" className="mt-3 text-5xl font-medium leading-[1.05] sm:text-6xl">
+            Heart Rate Training, <em className="font-normal">Explained by Science.</em>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
             RunZones Lab helps you calculate, understand and compare your heart rate training zones
