@@ -69,3 +69,13 @@ Users edit zones one by one (each zone's lower and upper percentage). Zones stay
 - Preset labels shown to users: "Sourced preset" (Friel-based Methods 1 and 3), "Provisional preset" (Method 2 convention) and "Custom zones". The "How was this calculated?" panel is collapsed by default.
 - Zone purpose, physiology and example text is deliberately general. It makes no method-specific physiological claims.
 - Zone bar: drawn on one BPM scale; open-ended source ends are faded and labelled as illustrative; every zone is also labelled with its number and range, so colour is never the only identifier.
+
+## P5. Comparison dashboard decisions (Phase 5)
+- Shared inputs are collected once. Each method is still evaluated on its own requirements; a method that lacks an input is shown as **incomplete** with the missing items named, and nothing is borrowed from another method or assumed.
+- Optional per-method HRmax source (for %MHR and %HRR) is available, and every assumption used is listed with the results.
+- Consistency checks: a 20-minute average above a **measured** HRmax, or a resting heart rate not below the 20-minute average, is a blocking error (the comparison is withheld until fixed). A 20-minute average above an **estimated** HRmax is only a warning, because equation estimates are off by roughly 10 bpm for many people.
+- Method identity does not rely on colour: glyph (● ■ ▲), label and border style (solid, dashed, dotted).
+- Shared-scale chart: one bpm axis for all methods (ticks every 10 bpm, or 20 for wide ranges); open source ends are faded and labelled illustrative.
+- Observations are generated from the user's own numbers (resting-HR effect at 70%, effect of a 10 bpm HRmax error, Tanaka vs 220 − age at the entered age, FTHR as a share of the HRmax used, Zone 2/4 start spreads), are only produced when their data exist, and always end with the statement that no method is automatically better (Garber et al., 2011).
+- Custom zone percentages are kept in a small in-memory store shared by the Calculator and Compare pages (no accounts, no persistence). Compare shows the Custom badge and offers Reset per method.
+- Zone-bar labels (Calculator) sit directly under their own zone with a tick at each boundary. When any zone is too narrow for a label (under 10% of the bar) or on phones, a plain list is used instead.

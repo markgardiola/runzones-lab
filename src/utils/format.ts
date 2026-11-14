@@ -15,6 +15,11 @@ export function formatBpmRange(row: Pick<ZoneRow, 'lowerBpm' | 'upperBpm'>): str
   return '—';
 }
 
+/** Same as formatBpmRange without the unit: "139–157", "≤ 138", "162+". */
+export function formatBpmRangeShort(row: Pick<ZoneRow, 'lowerBpm' | 'upperBpm'>): string {
+  return formatBpmRange(row).replace(/ bpm$/, '');
+}
+
 /** "73% to under 83%", "92–100%", "below 73%", "100% and above". */
 export function formatPctRange(row: Pick<ZoneRow, 'lowerPct' | 'upperPct' | 'upperInclusive'>): string {
   const { lowerPct: lo, upperPct: hi, upperInclusive } = row;

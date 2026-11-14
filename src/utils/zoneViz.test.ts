@@ -3,7 +3,8 @@ import { calculateHrrZones } from '../calculations/heartRateReserve';
 import { calculateMhrZones } from '../calculations/maximumHR';
 import { calculateThresholdZones } from '../calculations/thresholdHR';
 import { must } from '../calculations/testHelpers';
-import { buildVizSegments } from './zoneViz';
+import { compareMethods } from '../calculations/comparison';
+import { buildSharedScale, buildVizSegments } from './zoneViz';
 
 function sum(a: number[]): number {
   return a.reduce((x, y) => x + y, 0);
@@ -36,5 +37,49 @@ describe('buildVizSegments', () => {
     expect(s[4].startBpm).toBe(162);
     expect(s[4].endBpm).toBe(162 + 10); // Zone 4 is 152-161 = 10 bpm wide
     expect(Math.abs(sum(s.map((x) => x.widthPct)) - 100) < 1e-9).toBe(true);
+  });
+});
+
+
+describe('buildSharedScale', () => {
+  const r = compareMethods({
+    age: null,
+    measuredHrmax: 190,
+    hrmaxSource: 'measured',
+    rhr: 50,
+    avg20: 170,
+  });
+  const scale = buildSharedScale(
+    (['mhr', 'hrr', 'threshold'] as const).map((m) => ({ method: m, zones: r.outcomes[m].calc!.zones })),
+  )!;
+
+  it('uses one axis wide enough for every method, in steps of 10', () => {
+    expect(scale.minBpm).toBe(110);
+    expect(scale.maxBpm).toBe(200);
+    expect(scale.ticks).toEqual([110, 120, 130, 140, 150, 160, 170, 180, 190, 200]);
+  });
+
+  it('places the same bpm at the same position for every method', () => {
+    const hrrZ1 = scale.rows.find((x) => x.method === 'hrr')!.segments[0];
+    expect(Math.abs(hrrZ1.leftPct - ((120 - 110) / 90) * 100) < 1e-9).toBe(true);
+    const mhrZ2 = scale.rows.find((x) => x.method === 'mhr')!.segments[1];
+    expect(Math.abs(mhrZ2.leftPct - ((139 - 110) / 90) * 100) < 1e-9).toBe(true);
+  });
+
+  it('segments stay inside the axis and are contiguous', () => {
+    for (const row of scale.rows) {
+      for (let i = 0; i < row.segments.length; i++) {
+        const s = row.segments[i];
+        expect(s.leftPct >= 0 && s.leftPct + s.widthPct <= 100 + 1e-9).toBe(true);
+        if (i > 0) {
+          const p = row.segments[i - 1];
+          expect(Math.abs(p.leftPct + p.widthPct - s.leftPct) < 1e-9).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('returns null with nothing to draw', () => {
+    expect(buildSharedScale([])).toBeNull();
   });
 });

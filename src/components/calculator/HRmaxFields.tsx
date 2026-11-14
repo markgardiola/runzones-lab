@@ -1,19 +1,7 @@
 import type { HRmaxSource, ValidationIssue } from '../../types';
 import NumberField from '../common/NumberField';
 
-interface Props {
-  idPrefix: string;
-  source: HRmaxSource | null;
-  onSourceChange: (s: HRmaxSource) => void;
-  age: string;
-  onAgeChange: (v: string) => void;
-  measured: string;
-  onMeasuredChange: (v: string) => void;
-  issues: ValidationIssue[];
-  sourceError?: string;
-}
-
-const OPTIONS: { id: HRmaxSource; label: string; caveat: string }[] = [
+export const HRMAX_OPTIONS: { id: HRmaxSource; label: string; caveat: string }[] = [
   {
     id: 'measured',
     label: 'I know my measured maximum heart rate',
@@ -34,24 +22,21 @@ const OPTIONS: { id: HRmaxSource; label: string; caveat: string }[] = [
   },
 ];
 
-const msg = (issues: ValidationIssue[], field: string) => issues.find((i) => i.field === field)?.message;
+interface RadiosProps {
+  idPrefix: string;
+  legend: string;
+  source: HRmaxSource | null;
+  onSourceChange: (s: HRmaxSource) => void;
+  sourceError?: string;
+}
 
-export default function HRmaxFields({
-  idPrefix,
-  source,
-  onSourceChange,
-  age,
-  onAgeChange,
-  measured,
-  onMeasuredChange,
-  issues,
-  sourceError,
-}: Props) {
+/** The three HRmax source choices, with no default selected. */
+export function HRmaxSourceRadios({ idPrefix, legend, source, onSourceChange, sourceError }: RadiosProps) {
   return (
     <fieldset>
-      <legend className="text-sm font-medium">How do you want to determine your maximum heart rate (HRmax)?</legend>
+      <legend className="text-sm font-medium">{legend}</legend>
       <div className="mt-3 space-y-3">
-        {OPTIONS.map((o) => (
+        {HRMAX_OPTIONS.map((o) => (
           <div key={o.id}>
             <label className="flex min-h-[44px] cursor-pointer items-start gap-3">
               <input
@@ -71,7 +56,44 @@ export default function HRmaxFields({
         ))}
       </div>
       {sourceError ? <p className="mt-2 text-sm text-accent">{sourceError}</p> : null}
+    </fieldset>
+  );
+}
 
+interface Props {
+  idPrefix: string;
+  source: HRmaxSource | null;
+  onSourceChange: (s: HRmaxSource) => void;
+  age: string;
+  onAgeChange: (v: string) => void;
+  measured: string;
+  onMeasuredChange: (v: string) => void;
+  issues: ValidationIssue[];
+  sourceError?: string;
+}
+
+const msg = (issues: ValidationIssue[], field: string) => issues.find((i) => i.field === field)?.message;
+
+export default function HRmaxFields({
+  idPrefix,
+  source,
+  onSourceChange,
+  age,
+  onAgeChange,
+  measured,
+  onMeasuredChange,
+  issues,
+  sourceError,
+}: Props) {
+  return (
+    <div>
+      <HRmaxSourceRadios
+        idPrefix={idPrefix}
+        legend="How do you want to determine your maximum heart rate (HRmax)?"
+        source={source}
+        onSourceChange={onSourceChange}
+        sourceError={sourceError}
+      />
       {source === 'measured' ? (
         <div className="mt-4">
           <NumberField
@@ -97,6 +119,6 @@ export default function HRmaxFields({
           />
         </div>
       ) : null}
-    </fieldset>
+    </div>
   );
 }

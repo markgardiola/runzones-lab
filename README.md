@@ -23,5 +23,6 @@ Build command `npm run build`, output `dist`. `vercel.json` rewrites all routes 
 - Phase 1 (foundation, layout, Home): done and approved
 - Phase 2 (scientific methodology verification): done and approved (`docs/SCIENTIFIC_METHODS.md`, `docs/SOURCES.md`)
 - Phase 3 (calculation engine, zone models, validation, tests): done and approved
-- Phase 4 (calculator interface): drafted, awaiting review
+- Phase 4 (calculator interface): done and approved
+- Phase 5 (comparison dashboard): drafted, awaiting review
 - Phases 2–8: pending approval

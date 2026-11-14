@@ -1,19 +1,20 @@
 import { useMemo, useState } from 'react';
-import { resetEdges } from '../calculations/zoneEditing';
 import type { Validated, ZoneCalculation, ZoneModel } from '../types';
+import { useZoneEditsStore } from './ZoneEditsContext';
 
 type Edges = (number | null)[];
 
 /**
- * Holds one method's submitted inputs and custom zone edges, and recomputes the result when either
- * changes. `calculate` must be a stable (module-level) function.
+ * Holds one method's submitted inputs and recomputes the result when the inputs or the method's
+ * custom zone edges change. `calculate` must be a stable (module-level) function.
  */
 export function useZoneMethod<I>(
   model: ZoneModel,
   calculate: (inputs: I, edges: Edges | undefined) => Validated<ZoneCalculation>,
 ) {
   const [submitted, setSubmitted] = useState<I | null>(null);
-  const [edges, setEdges] = useState<Edges>(() => resetEdges(model));
+  const store = useZoneEditsStore();
+  const edges = store.edges[model.method];
   const result = useMemo(
     () => (submitted === null ? null : calculate(submitted, edges)),
     [submitted, edges, calculate],
@@ -21,8 +22,8 @@ export function useZoneMethod<I>(
   return {
     result,
     edges,
-    setEdges,
+    setEdges: (e: Edges) => store.setEdges(model.method, e),
     submit: (inputs: I) => setSubmitted(inputs),
-    reset: () => setEdges(resetEdges(model)),
+    reset: () => store.reset(model.method),
   };
 }

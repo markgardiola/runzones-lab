@@ -102,7 +102,13 @@ After a result is calculated, users can edit the percentages **zone by zone**: e
 - Frontend-only: no accounts. Persistence (e.g. localStorage) is optional and deferred.
 - Implementation: presets in `data/zoneModels.ts` are immutable. Calculations take a list of zone edges, so custom values use the same code path. Editing logic is in `calculations/zoneEditing.ts` and is covered by tests.
 
-## 8. Unresolved items
+## 8. Comparison rules (Phase 5)
+- Each method is evaluated independently on its own inputs; missing inputs make that method **incomplete**, never guessed.
+- Blocking inconsistencies: 20-minute average above a measured HRmax; resting heart rate not below the 20-minute average. Warning only: 20-minute average above an estimated HRmax.
+- Observations are arithmetic on the user's numbers plus sourced statements (Tanaka et al. 2001 for the ~10 bpm individual error; Garber et al. 2011 for non-equivalence of methods). The resting-heart-rate observation uses the identity HRR bpm − %HRmax bpm = RHR × (1 − p).
+- No method is presented as universally superior.
+
+## 9. Unresolved items
 1. **Method 2 source:** no authoritative source for 10%-band zones on %HRR. Options: keep provisional (current), adopt ACSM classes, or find a running-specific %HRR source. Owner decided on the current preset.
 2. **S-07 citation:** supplied by the owner (Bloomsbury, 2025); confirm edition and page against the book.
 3. **S-08 edition year** (1992/1993/1994).

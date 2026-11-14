@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatBpmRange, formatNumber, formatPctRange, parseNumberInput } from './format';
+import { formatBpmRange, formatBpmRangeShort, formatNumber, formatPctRange, parseNumberInput } from './format';
 
 describe('formatNumber', () => {
   it('trims trailing zeros and keeps up to 3 decimals', () => {
@@ -17,6 +17,11 @@ describe('range formatting', () => {
     expect(formatBpmRange({ lowerBpm: 139, upperBpm: 157 })).toBe('139–157 bpm');
     expect(formatBpmRange({ lowerBpm: null, upperBpm: 138 })).toBe('≤ 138 bpm');
     expect(formatBpmRange({ lowerBpm: 162, upperBpm: null })).toBe('162+ bpm');
+  });
+  it('short bpm ranges drop the unit', () => {
+    expect(formatBpmRangeShort({ lowerBpm: 146, upperBpm: 165 })).toBe('146–165');
+    expect(formatBpmRangeShort({ lowerBpm: null, upperBpm: 145 })).toBe('≤ 145');
+    expect(formatBpmRangeShort({ lowerBpm: 184, upperBpm: null })).toBe('184+');
   });
   it('percentage ranges make the boundary convention explicit', () => {
     expect(formatPctRange({ lowerPct: 73, upperPct: 83, upperInclusive: false })).toBe('73% to under 83%');
