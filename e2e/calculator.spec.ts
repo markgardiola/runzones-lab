@@ -173,7 +173,11 @@ test('every input on the calculator has an accessible name', async ({ page }) =>
   await p.getByLabel(/Resting heart rate/).fill('50');
   await calculate(p);
   const unlabeled = await page.$$eval('#calc-panel-hrr input', (els) =>
-    els.filter((e) => !(e.labels && e.labels.length > 0) && !e.getAttribute('aria-label')).length,
+    els.filter((e) => {
+      const input = e as HTMLInputElement;
+      return !(input.labels && input.labels.length > 0) &&
+        !input.getAttribute('aria-label');
+    }).length,
   );
   expect(unlabeled).toBe(0);
 });
