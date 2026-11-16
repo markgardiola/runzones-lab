@@ -2,12 +2,17 @@ import { Link } from 'react-router-dom';
 import { METHODS } from '../config/navigation';
 import { SITE } from '../config/site';
 import { RESEARCHER_HIGHLIGHTS } from '../data/researchers';
-import { REFERENCES } from '../data/references';
+import { getReference } from '../data/references';
+import type { ReferenceEntry } from '../types';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import HeroVisual from '../components/charts/HeroVisual';
 import ZoneStrip from '../components/charts/ZoneStrip';
 import SectionHeading from '../components/common/SectionHeading';
 import DonationSection from '../components/donation/DonationSection';
+
+const SHOWCASE: ReferenceEntry[] = ['tanaka-2001', 'karvonen-1957', 'friel-quick-guide-2025']
+  .map(getReference)
+  .filter((r): r is ReferenceEntry => Boolean(r));
 
 export default function Home() {
   useDocumentMeta(SITE.name);
@@ -106,11 +111,11 @@ export default function Home() {
           Every calculation is traceable to a published source.
         </SectionHeading>
         <ul className="mt-10 divide-y divide-line border-y border-line">
-          {REFERENCES.map((ref) => (
+          {SHOWCASE.map((ref) => (
             <li key={ref.id} className="grid gap-2 py-5 md:grid-cols-[1fr_2fr]">
-              <p className="text-sm text-muted">{ref.authors} ({ref.year})</p>
+              <p className="text-sm text-muted">{ref.authors}{ref.year !== null ? ` (${ref.year})` : ''}</p>
               <div>
-                <a href={ref.url} target="_blank" rel="noopener noreferrer" className="link-underline font-medium">
+                <a href={ref.url ?? `/references#${ref.id}`} target="_blank" rel="noopener noreferrer" className="link-underline font-medium">
                   {ref.title}
                 </a>
                 <p className="mt-1 text-sm text-muted">{ref.venue}</p>

@@ -31,15 +31,48 @@ export interface ResearcherHighlight {
   featured: string;
 }
 
+export type VerificationLevel = 'read-full' | 'read-partial' | 'citation-only' | 'secondary' | 'owner-supplied';
+export type ReferenceCategory = 'peer-reviewed' | 'review' | 'guideline' | 'methodology' | 'practitioner';
+
 export interface ReferenceEntry {
   id: string;
   title: string;
   authors: string;
-  year: number;
+  /** null when the year could not be verified. */
+  year: number | null;
   venue: string;
   identifiers: { doi?: string; pmid?: string };
-  url: string;
+  /** Only set when a working public link was seen. */
+  url?: string;
+  category: ReferenceCategory;
+  /** How far this project's checking went. Shown to readers. */
+  verification: VerificationLevel;
   relevance: string;
+  note?: string;
+}
+
+export interface BioSource {
+  label: string;
+  url: string;
+}
+
+export interface ResearcherProfile {
+  slug: string;
+  name: string;
+  kind: 'researcher' | 'coach';
+  role: string;
+  biography: string[];
+  background: string[];
+  contributions: string[];
+  methods: MethodId[];
+  /** The person's own publications or methodology. */
+  publicationIds: string[];
+  /** Other sources that discuss their work. */
+  furtherReadingIds: string[];
+  runningRelevance: string[];
+  /** What this profile deliberately does not claim. */
+  limits: string[];
+  bioSources: BioSource[];
 }
 
 // ---------- Calculation engine types (Phase 3) ----------

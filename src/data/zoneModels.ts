@@ -1,7 +1,7 @@
 import type { MethodId, ZoneModel } from '../types';
 
 // Zone presets (Phase 2 decisions: see docs/DECISIONS.md and docs/SCIENTIFIC_METHODS.md).
-// Source IDs refer to docs/SOURCES.md. Percentages live here, never in components.
+// Source IDs refer to entries in data/references.ts. Percentages live here, never in components.
 // edges[i-1] = lower % of zone i, edges[i] = upper % (null = open end).
 
 export const ZONE_MODELS: Record<MethodId, ZoneModel> = {
@@ -10,7 +10,7 @@ export const ZONE_MODELS: Record<MethodId, ZoneModel> = {
     method: 'mhr',
     label: 'Friel zones, % of maximum heart rate',
     status: 'confirmed',
-    sourceIds: ['S-06', 'S-07'],
+    sourceIds: ['friel-quick-guide-2025', 'friel-hpc-2025'],
     anchorKind: 'hrmax',
     // Friel: Z1 < 72, Z2 73-82, Z3 83-87, Z4 88-92, Z5 92-100 (5a+5b). Each zone's stated
     // lower percentage is its lower boundary (see SCIENTIFIC_METHODS.md section 6).
@@ -26,7 +26,7 @@ export const ZONE_MODELS: Record<MethodId, ZoneModel> = {
     method: 'hrr',
     label: 'Common 10%-band convention applied to heart rate reserve',
     status: 'provisional',
-    sourceIds: ['S-08', 'S-09'],
+    sourceIds: ['edwards-hrm-book', 'polar-heart-rate-zones'],
     anchorKind: 'hrr',
     edges: [50, 60, 70, 80, 90, 100],
     range: { min: 0, max: 100 },
@@ -40,7 +40,7 @@ export const ZONE_MODELS: Record<MethodId, ZoneModel> = {
     method: 'threshold',
     label: 'Friel zones, % of field-estimated FTHR',
     status: 'confirmed',
-    sourceIds: ['S-06', 'S-07'],
+    sourceIds: ['friel-quick-guide-2025', 'friel-hpc-2025'],
     anchorKind: 'fthr',
     // Friel: Z1 < 78, Z2 78-86, Z3 87-93, Z4 94-99, Z5 >= 100 (5a 100-102, 5b > 102).
     edges: [null, 78, 87, 94, 100, null],

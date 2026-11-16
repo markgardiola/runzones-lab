@@ -79,3 +79,12 @@ Users edit zones one by one (each zone's lower and upper percentage). Zones stay
 - Observations are generated from the user's own numbers (resting-HR effect at 70%, effect of a 10 bpm HRmax error, Tanaka vs 220 − age at the entered age, FTHR as a share of the HRmax used, Zone 2/4 start spreads), are only produced when their data exist, and always end with the statement that no method is automatically better (Garber et al., 2011).
 - Custom zone percentages are kept in a small in-memory store shared by the Calculator and Compare pages (no accounts, no persistence). Compare shows the Custom badge and offers Reset per method.
 - Zone-bar labels (Calculator) sit directly under their own zone with a tick at each boundary. When any zone is too narrow for a label (under 10% of the bar) or on phones, a plain list is used instead.
+
+## P6a. Research Library decisions (Phase 6, part 1)
+- Every reference records how far checking went (read in full / abstract and excerpts / citation only / practitioner source / owner-supplied) and the site shows it. Anything not read in full must carry a note saying so (enforced by a test).
+- A reference with no verified link or year shows "no link" / "year not verified" instead of a guess.
+- Profiles contain only facts found in the cited sources, and each lists what it does not claim. Researchers and coaches are separated. Tests reject promotional wording ("world-renowned", "legendary", and similar).
+- No portraits: none with a verified licence is available.
+- Haskell is included with a verified biography and an explicit statement that the sources do not say he devised 220 − age; his PhD year is omitted because two sources disagree.
+- Zone presets now cite entries in the reference library by id, and a test checks every cited id exists.
+- Hash links (`/researchers#tanaka`, `/about#disclaimer`) scroll to their target. React Router does not do this by itself, so `ScrollToTop` handles it.

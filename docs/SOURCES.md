@@ -1,5 +1,7 @@
 # Sources register
 
+> **Phase 6 update:** the canonical, user-visible registry is now `src/data/references.ts` (with ids such as `tanaka-2001`). The table below is the working log. Where it differs from the **Phase 6 update** section at the end, the update wins.
+
 Verification levels: **P** = primary document read in full text this phase; **C** = citation confirmed (PubMed or similar) but content not read; **S** = secondary or commercial source, used only where stated; **O** = owner-supplied material.
 Nothing may be cited on the site above its level. Items marked "to do" are carried into Phase 6.
 
@@ -23,3 +25,23 @@ Nothing may be cited on the site above its level. Items marked "to do" are carri
 - Any claim that Fox and Haskell derived 220 − age from specific data (S-01 gives their account; S-02 not read in full).
 - Karvonen's profession ("physician"): the brief says so, but no source read confirms it.
 - Field-test limitations beyond pacing (fatigue, heat, device error): the brief lists them, but no source has been read for each. Source them in Phase 6 or phrase them as general cautions.
+
+## Phase 6 update (sources read for the Research Library and profiles)
+
+| Source | What was read | Used for |
+| --- | --- | --- |
+| Ignaszewski M, Lau B, Wong S, Isserow S. *The science of exercise prescription: Martti Karvonen and his contributions.* BC Med J 2017;59(1):38–41 (peer-reviewed) | **Full text** | Karvonen biography (born 1918; MD Helsinki 1945; PhD Cambridge 1950; Institute of Occupational Health; chief physician of the Finnish air force and army; Seven Countries Study and North Karelia Project); the Karvonen formula with coefficient K; the 1957 study as described second-hand, including the 60% HRR threshold; the formula's accuracy as a rule of thumb. Replaces S-10. |
+| Swain DP, Franklin BA. *Counterpoint: Theoretical and empirical basis for equating HRR with VO2 reserve.* J Clin Exerc Physiol 2021;10(3):97–101 | **Full text** | The 1957 study introduced the HRR approach and did not measure VO2; the %HRR vs %VO2max vs %VO2R debate (one side of it); Ferri Marini et al. (2021) argue non-equivalence; cardiovascular drift example. Replaces S-11. |
+| Robergs RA, Landwehr R. JEPonline 2002;5(2):1–10 | **Abstract and substantial excerpts** (copies of the paper) | 220 − age is not from original research; informal fit to data compiled in 1971; prediction error Sxy of 7–11 b/min; the earlier Robinson (1938) equation. Publisher copy not fetched. |
+| Faude O, Kindermann W, Meyer T. Lactate threshold concepts: how valid are they? Sports Med 2009;39(6):469–490 | **Abstract** | 25 different lactate threshold concepts; some can estimate the maximal lactate steady state. |
+| UT Austin faculty profile, Hirofumi Tanaka | Profile page | Tanaka's position, laboratory, degrees and postdoctoral training; research focus. |
+| Stanford Historical Society oral history of William L. Haskell; Stanford Profiles | Abstract and profile text | Haskell's position, degrees, honorary doctorate. The two sources differ on the year of his PhD (1965 vs 1966), so no year is given. |
+| Joe Friel's blog biography; Simon & Schuster author page; TrainingPeaks article (2009 copyright) | Pages read | Friel's degree, books, TrainingPeaks co-founding (1999), earlier 30-minute test. |
+
+Not used for scientific claims (seen in searches only): coaching and fitness blogs, forums, commercial calculators. Edwards (*The Heart Rate Monitor Book*) and Polar are listed as practitioner sources for the 10%-band convention only.
+
+### Still not read
+- Karvonen, Kentala & Mustala (1957) itself: no abstract exists on PubMed. Everything about it is second-hand and labelled so.
+- Fox, Naughton & Haskell (1971) itself.
+- Ferri Marini et al. (2021): citation only, via Swain and Franklin.
+- The publisher copy of Robergs and Landwehr (2002).

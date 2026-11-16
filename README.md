@@ -13,6 +13,9 @@ npm run typecheck  # tsc --noEmit
 npm run build      # production build to dist/
 ```
 
+## Testing
+See `docs/TESTING.md` for what each check is for, how to run it on Windows PowerShell, and how to read failures. First-time browser setup: `npx playwright install chromium`.
+
 ## Configuration
 Copy `.env.example` to `.env.local` and set `VITE_PAYPAL_DONATION_URL` to the owner's PayPal.Me link (https, PayPal domains only). While unset, the site shows a disabled donation button.
 
@@ -24,5 +27,6 @@ Build command `npm run build`, output `dist`. `vercel.json` rewrites all routes 
 - Phase 2 (scientific methodology verification): done and approved (`docs/SCIENTIFIC_METHODS.md`, `docs/SOURCES.md`)
 - Phase 3 (calculation engine, zone models, validation, tests): done and approved
 - Phase 4 (calculator interface): done and approved
-- Phase 5 (comparison dashboard): drafted, awaiting review
+- Phase 5 (comparison dashboard): done and approved
+- Phase 6 (educational content): part 1 done (Researchers, References); part 2 (Science articles, About) pending
 - Phases 2–8: pending approval

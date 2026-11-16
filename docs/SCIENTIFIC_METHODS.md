@@ -112,6 +112,6 @@ After a result is calculated, users can edit the percentages **zone by zone**: e
 1. **Method 2 source:** no authoritative source for 10%-band zones on %HRR. Options: keep provisional (current), adopt ACSM classes, or find a running-specific %HRR source. Owner decided on the current preset.
 2. **S-07 citation:** supplied by the owner (Bloomsbury, 2025); confirm edition and page against the book.
 3. **S-08 edition year** (1992/1993/1994).
-4. **Full reading still to do** (Phase 6): Robergs & Landwehr (S-02), Karvonen 1957 content (S-04), the Swain/Franklin point-counterpoint (S-11).
+4. **Reading status after Phase 6 (part 1):** the Swain/Franklin counterpoint and the BCMJ Karvonen review are read in full; Robergs & Landwehr abstract and excerpts only; Karvonen 1957 and Fox et al. 1971 themselves not read (no abstract exists for the former). All second-hand statements are labelled as such on the site.
 5. **Tanaka population caveat:** surface "healthy adults; not validated for cardiovascular disease or smokers" next to the Tanaka option.
 6. **Friel 5a/5b display:** the brief says to explain subdivisions; confirm the sub-band presentation for Z5 in Phase 4.
