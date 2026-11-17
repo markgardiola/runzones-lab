@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import type { ArticleBlock } from '../types';
+import { ARTICLES, METHOD_ARTICLE_HEADINGS } from './articles';
 import { CATEGORY_LABELS, CATEGORY_ORDER, REFERENCES, VERIFICATION_LABELS, getReference } from './references';
+import { PORTRAITS } from './portraits';
 import { RESEARCHER_HIGHLIGHTS, RESEARCHER_PROFILES } from './researchers';
 import { ZONE_MODELS } from './zoneModels';
 
@@ -101,5 +104,83 @@ describe('zone presets cite real library entries', () => {
         expect(`${model.id} -> ${id}: ${getReference(id) !== undefined}`).toBe(`${model.id} -> ${id}: true`);
       }
     }
+  });
+});
+
+describe('portraits', () => {
+  it('only exist for real profiles and are always complete, self-hosted and credited', () => {
+    for (const [slug, p] of Object.entries(PORTRAITS)) {
+      expect(`${slug}: ${RESEARCHER_PROFILES.some((x) => x.slug === slug)}`).toBe(`${slug}: true`);
+      expect(p!.src.startsWith('/images/people/')).toBe(true);
+      expect(p!.alt.length > 0 && p!.credit.length > 0 && p!.license.length > 0).toBe(true);
+      expect(p!.sourceUrl.startsWith('https://')).toBe(true);
+    }
+  });
+});
+
+
+const textOf = (blocks: ArticleBlock[]): string =>
+  blocks
+    .map((b) => {
+      switch (b.type) {
+        case 'ul':
+        case 'ol':
+          return b.items.join(' ');
+        case 'table':
+          return [b.caption, ...b.head, ...b.rows.flat(), b.note ?? ''].join(' ');
+        case 'example':
+          return '';
+        case 'callout':
+          return `${b.title} ${b.text}`;
+        default:
+          return b.text;
+      }
+    })
+    .join(' ');
+
+describe('science articles', () => {
+  it('slugs are unique and every referenced source exists', () => {
+    const slugs = ARTICLES.map((a) => a.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    for (const a of ARTICLES) {
+      expect(a.referenceIds.length > 0).toBe(true);
+      for (const id of a.referenceIds) expect(`${a.slug} -> ${id}: ${getReference(id) !== undefined}`).toBe(`${a.slug} -> ${id}: true`);
+    }
+  });
+
+  it('every parenthetical citation (Author, Year) is backed by a source listed for that article', () => {
+    const months = /^(January|February|March|April|May|June|July|August|September|October|November|December)$/;
+    for (const a of ARTICLES) {
+      const refs = a.referenceIds.map((id) => getReference(id)!);
+      for (const m of textOf(a.blocks).matchAll(/\(([^()]*?),? (\d{4})\)/g)) {
+        const surname = m[1].split(/[ ,]/)[0];
+        if (months.test(surname)) continue;
+        const ok = refs.some((r) => r.authors.startsWith(surname) && r.year === Number(m[2]));
+        expect(`${a.slug}: ${m[0]} -> ${ok}`).toBe(`${a.slug}: ${m[0]} -> true`);
+      }
+    }
+  });
+
+  it('the three method articles contain every required section, in order', () => {
+    for (const slug of ['maximum-heart-rate-method', 'karvonen-heart-rate-reserve-method', 'threshold-field-testing-method']) {
+      const a = ARTICLES.find((x) => x.slug === slug)!;
+      const headings = a.blocks.filter((b) => b.type === 'h').map((b) => (b as { text: string }).text);
+      const positions = METHOD_ARTICLE_HEADINGS.map((h) => headings.indexOf(h));
+      expect(`${slug}: ${positions.every((p) => p >= 0)}`).toBe(`${slug}: true`);
+      expect([...positions].sort((x, y) => x - y)).toEqual(positions);
+    }
+  });
+
+  it('keeps the careful wording: second-hand Karvonen, FTHR is not a lab LTHR, no method is called better', () => {
+    const get = (slug: string) => textOf(ARTICLES.find((a) => a.slug === slug)!.blocks);
+    expect(get('karvonen-heart-rate-reserve-method')).toContain('has not read the 1957 paper itself');
+    expect(get('threshold-field-testing-method')).toContain('not the same as a laboratory-measured lactate threshold heart rate');
+    expect(get('five-zones')).toContain('No method is automatically better');
+    expect(get('understanding-heart-rate')).toContain('at least 25 different threshold concepts');
+  });
+
+  it('articles contain no promotional or absolute wording', () => {
+    const banned = /revolutionary|proven to|guaranteed|the best method|always accurate|world-renowned|miracle/i;
+    for (const a of ARTICLES) expect(`${a.slug}: ${banned.test(textOf(a.blocks))}`).toBe(`${a.slug}: false`);
   });
 });

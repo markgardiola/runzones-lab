@@ -1,6 +1,19 @@
 import { expect, test } from '@playwright/test';
 
-const ROUTES = ['/', '/calculator', '/compare', '/science', '/researchers', '/references', '/about'];
+const ROUTES = [
+  '/',
+  '/calculator',
+  '/compare',
+  '/science',
+  '/science/understanding-heart-rate',
+  '/science/maximum-heart-rate-method',
+  '/science/karvonen-heart-rate-reserve-method',
+  '/science/threshold-field-testing-method',
+  '/science/five-zones',
+  '/researchers',
+  '/references',
+  '/about',
+];
 
 test.describe('every page loads cleanly', () => {
   for (const route of ROUTES) {

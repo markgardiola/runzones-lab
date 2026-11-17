@@ -56,6 +56,21 @@ export interface BioSource {
   url: string;
 }
 
+/** A portrait is shown only when every field here is filled in (image rights must be clear). */
+export interface PortraitInfo {
+  /** Self-hosted file under /images/people/ */
+  src: string;
+  alt: string;
+  /** Photographer or rights holder, as the licence requires. */
+  credit: string;
+  /** e.g. "CC BY-SA 4.0", "Public domain", or "Used with permission". */
+  license: string;
+  /** Page where the image and its licence or permission can be checked. */
+  sourceUrl: string;
+  width?: number;
+  height?: number;
+}
+
 export interface ResearcherProfile {
   slug: string;
   name: string;
@@ -165,4 +180,35 @@ export interface ZoneCalculation {
   zones: ZoneRow[];
   /** HRR preset only: highest bpm below Zone 1, when Zone 1 has a closed floor. */
   belowZone1MaxBpm: number | null;
+}
+
+// ---------- Science articles (Phase 6) ----------
+
+export type ExampleKey =
+  | 'mhr-190'
+  | 'mhr-tanaka-40'
+  | 'hrr-190-50'
+  | 'resting-hr-effect'
+  | 'fthr-170'
+  | 'zone-labels'
+  | 'compare-presets'
+  | 'compare-zone2';
+
+export type ArticleBlock =
+  | { type: 'h'; text: string }
+  | { type: 'p'; text: string }
+  | { type: 'ul'; items: string[] }
+  | { type: 'ol'; items: string[] }
+  | { type: 'formula'; text: string }
+  | { type: 'callout'; title: string; text: string }
+  | { type: 'table'; caption: string; head: string[]; rows: string[][]; note?: string }
+  | { type: 'example'; example: ExampleKey };
+
+export interface Article {
+  slug: string;
+  title: string;
+  summary: string;
+  blocks: ArticleBlock[];
+  referenceIds: string[];
+  tryIt?: { label: string; to: string };
 }

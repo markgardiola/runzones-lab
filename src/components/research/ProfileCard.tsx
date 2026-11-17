@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { METHODS } from '../../config/navigation';
 import { getReference } from '../../data/references';
+import { PORTRAITS } from '../../data/portraits';
 import type { ReferenceEntry, ResearcherProfile } from '../../types';
+import PortraitFigure from './PortraitFigure';
 
 function RefList({ ids }: { ids: string[] }) {
   const refs = ids.map(getReference).filter((r): r is ReferenceEntry => Boolean(r));
@@ -30,12 +32,14 @@ export default function ProfileCard({ profile }: { profile: ResearcherProfile })
   const methods = METHODS.filter((m) => profile.methods.includes(m.id));
   return (
     <article id={profile.slug} className="scroll-mt-8 border-t border-ink py-10" aria-labelledby={`${profile.slug}-name`}>
-      <p className="eyebrow">{profile.kind === 'coach' ? 'Coach and author' : 'Researcher'}</p>
-      <h2 id={`${profile.slug}-name`} className="mt-1 text-3xl font-medium">{profile.name}</h2>
-      <p className="mt-1 text-sm text-muted">{profile.role}</p>
-      <p className="mt-2 text-xs text-muted">
-        No portrait is shown: no image with a verified licence is available.
-      </p>
+      <div className="flex flex-wrap items-start gap-6">
+        <PortraitFigure name={profile.name} portrait={PORTRAITS[profile.slug]} />
+        <div className="min-w-0 flex-1">
+          <p className="eyebrow">{profile.kind === 'coach' ? 'Coach and author' : 'Researcher'}</p>
+          <h2 id={`${profile.slug}-name`} className="mt-1 text-3xl font-medium">{profile.name}</h2>
+          <p className="mt-1 max-w-2xl text-sm text-muted">{profile.role}</p>
+        </div>
+      </div>
 
       <div className="mt-6 grid gap-8 md:grid-cols-[2fr_1fr]">
         <div className="space-y-6">

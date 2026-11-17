@@ -115,3 +115,6 @@ After a result is calculated, users can edit the percentages **zone by zone**: e
 4. **Reading status after Phase 6 (part 1):** the Swain/Franklin counterpoint and the BCMJ Karvonen review are read in full; Robergs & Landwehr abstract and excerpts only; Karvonen 1957 and Fox et al. 1971 themselves not read (no abstract exists for the former). All second-hand statements are labelled as such on the site.
 5. **Tanaka population caveat:** surface "healthy adults; not validated for cardiovascular disease or smokers" next to the Tanaka option.
 6. **Friel 5a/5b display:** the brief says to explain subdivisions; confirm the sub-band presentation for Z5 in Phase 4.
+
+## 10. Educational content (Phase 6)
+The articles in `src/data/articles.ts` implement sections 3 to 7 of this document in reader-friendly form. If a decision in this document changes (a preset, a rounding rule, a source), update the matching article text; the worked examples update themselves because they are computed.

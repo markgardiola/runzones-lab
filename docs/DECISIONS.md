@@ -88,3 +88,12 @@ Users edit zones one by one (each zone's lower and upper percentage). Zones stay
 - Haskell is included with a verified biography and an explicit statement that the sources do not say he devised 220 − age; his PhD year is omitted because two sources disagree.
 - Zone presets now cite entries in the reference library by id, and a test checks every cited id exists.
 - Hash links (`/researchers#tanaka`, `/about#disclaimer`) scroll to their target. React Router does not do this by itself, so `ScrollToTop` handles it.
+
+## P6b. Science, About and portraits (Phase 6, part 2)
+- Five articles (key concepts, one per method, the five zones). Each method article has the seven required sections (historical background, scientific concept, formula, example calculation, advantages, limitations, practical applications) plus a supporting-references list. A test checks the sections and their order.
+- Worked examples are computed by the calculation engine at render time, not typed in. Tests check them against the hand-verified numbers.
+- Every parenthetical citation in an article must match a source listed for that article (checked by a test). Statements about sources not read in full say "as described by" and name the source that was read.
+- General cautions that are not findings from a specific study (pacing, fatigue, heat, device accuracy; testing under similar conditions) are worded as general cautions.
+- The five-zones article reproduces Friel's RPE, description and time-to-exhaustion columns from the owner-supplied table. The owner confirmed the MHR and FTHR columns only; the other columns still need confirming against the book.
+- Portraits: a profile shows a photo only when `src/data/portraits.ts` holds a complete entry (self-hosted file, alt text, credit, licence, source link). Otherwise a neutral monogram placeholder is shown. No image was added because none with a verified licence was found; `docs/PORTRAITS.md` explains how to add one legally.
+- About page copy follows the brief's mission and transparency commitments and states nothing about the site owner.

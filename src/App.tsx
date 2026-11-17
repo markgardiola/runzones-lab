@@ -7,7 +7,9 @@ import Science from './pages/Science';
 import Researchers from './pages/Researchers';
 import References from './pages/References';
 import About from './pages/About';
+import ArticlePage from './pages/ArticlePage';
 import NotFound from './pages/NotFound';
+import { ARTICLES } from './data/articles';
 import { ZoneEditsProvider } from './hooks/ZoneEditsContext';
 
 export default function App() {
@@ -19,6 +21,9 @@ export default function App() {
           <Route path="calculator" element={<Calculator />} />
           <Route path="compare" element={<Compare />} />
           <Route path="science" element={<Science />} />
+          {ARTICLES.map((a) => (
+            <Route key={a.slug} path={`science/${a.slug}`} element={<ArticlePage slug={a.slug} />} />
+          ))}
           <Route path="researchers" element={<Researchers />} />
           <Route path="references" element={<References />} />
           <Route path="about" element={<About />} />

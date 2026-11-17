@@ -13,11 +13,17 @@ test.describe('researchers page', () => {
     await expect(page.locator('#tanaka')).toContainText(/researcher/i);
   });
 
-  test('every profile states what it does not claim and why no portrait is shown', async ({ page }) => {
+  test('every profile states what it does not claim and shows a portrait or an honest placeholder', async ({ page }) => {
     for (const slug of ['tanaka', 'karvonen', 'haskell', 'friel']) {
       const profile = page.locator(`#${slug}`);
       await expect(profile).toContainText('What this profile does not claim');
-      await expect(profile).toContainText('No portrait is shown');
+      // With no licensed image supplied yet, a monogram placeholder is shown instead of a photo
+      if ((await profile.locator('[data-portrait="image"]').count()) === 0) {
+        await expect(profile.locator('[data-portrait="placeholder"]')).toContainText('Portrait not yet available');
+      } else {
+        await expect(profile.locator('[data-portrait="image"] img')).toHaveAttribute('alt', /.+/);
+        await expect(profile.locator('[data-portrait="image"] figcaption')).toContainText(/\S/);
+      }
       await expect(profile).toContainText('Sources for this profile');
     }
   });
