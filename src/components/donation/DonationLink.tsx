@@ -11,7 +11,7 @@ export default function DonationLink() {
   }
   return (
     <a href={DONATION_URL} target="_blank" rel="noopener noreferrer" className="link-underline text-sm">
-      Support RunZones Lab via PayPal
+      Support RunZones Lab via PayPal<span className="sr-only"> (opens in a new tab)</span>
     </a>
   );
 }

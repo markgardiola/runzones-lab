@@ -13,6 +13,9 @@ npm run typecheck  # tsc --noEmit
 npm run build      # production build to dist/
 ```
 
+## Donations, portraits and deployment
+See `docs/DONATIONS.md` (PayPal setup), `docs/PORTRAITS.md` and `docs/DEPLOYMENT.md`.
+
 ## Testing
 See `docs/TESTING.md` for what each check is for, how to run it on Windows PowerShell, and how to read failures. First-time browser setup: `npx playwright install chromium`.
 
@@ -28,5 +31,6 @@ Build command `npm run build`, output `dist`. `vercel.json` rewrites all routes 
 - Phase 3 (calculation engine, zone models, validation, tests): done and approved
 - Phase 4 (calculator interface): done and approved
 - Phase 5 (comparison dashboard): done and approved
-- Phase 6 (educational content): done (Science articles, Researchers, References, About, portrait support), awaiting review
+- Phase 6 (educational content): done and approved
+- Phase 7 (donation, finalization): in progress (donation link, portraits workflow, contrast and edge-case tests, deployment docs done; owner checks listed in docs/DEPLOYMENT.md)
 - Phases 2–8: pending approval

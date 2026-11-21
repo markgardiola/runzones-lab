@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { loadEnv } from 'vite';
 
 /**
  * End-to-end tests drive the real site in a real browser.
@@ -19,6 +20,14 @@ const baseURL = process.env.E2E_BASE_URL ?? `http://localhost:${port}`;
  * therefore use the signed Microsoft Edge that ships with the system.
  * Override with E2E_CHANNEL = chrome | msedge | bundled (bundled = Playwright's own Chromium).
  */
+// Vite reads .env / .env.local itself, but Playwright does not. Load the same files so the tests can
+// compare against the link the site was built with. Skipped for a deployed site (E2E_BASE_URL),
+// whose settings live on the host.
+if (!process.env.E2E_BASE_URL && !process.env.VITE_PAYPAL_DONATION_URL) {
+  const fileEnv = loadEnv(useDev ? 'development' : 'production', process.cwd(), 'VITE_');
+  if (fileEnv.VITE_PAYPAL_DONATION_URL) process.env.VITE_PAYPAL_DONATION_URL = fileEnv.VITE_PAYPAL_DONATION_URL;
+}
+
 const requested = process.env.E2E_CHANNEL;
 const channel = requested === 'bundled' ? undefined : requested || (process.platform === 'win32' ? 'msedge' : undefined);
 

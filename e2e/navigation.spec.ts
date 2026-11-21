@@ -86,12 +86,3 @@ test.describe('navigation and links', () => {
     await expect(page.getByRole('heading', { name: 'Compare the Three Methods' })).toBeVisible();
   });
 });
-
-test.describe('donation', () => {
-  test('without a configured link, the button is disabled and no link to PayPal exists', async ({ page }) => {
-    test.skip(Boolean(process.env.VITE_PAYPAL_DONATION_URL), 'A donation URL is configured in this environment');
-    await page.goto('/');
-    await expect(page.getByText('Donation link not yet configured').first()).toBeVisible();
-    await expect(page.locator('a[href*="paypal"]')).toHaveCount(0);
-  });
-});

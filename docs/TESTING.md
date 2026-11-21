@@ -41,6 +41,18 @@ $env:E2E_BASE_URL = "https://your-site.vercel.app"
 npx playwright test
 ```
 
+## Before you deploy
+
+```powershell
+npm run typecheck
+npm test
+npm run test:e2e
+npm run preflight
+npm run build
+```
+
+`npm run preflight` is not a test: it lists decisions that are still open (donation link, portrait rights). See `docs/DEPLOYMENT.md`.
+
 ## Troubleshooting
 
 **Windows Security says "Part of this app has been blocked ... chrome-headless-shell.exe".** Windows' reputation-based protection (for example Smart App Control) blocks Playwright's downloaded browser because it is unsigned. Nothing is wrong with your project. The config already uses the signed Microsoft Edge on Windows, so just re-run `npm run test:e2e`. Do not turn Smart App Control off: it generally cannot be turned back on. To choose a browser explicitly:
@@ -102,9 +114,10 @@ test('measured HRmax 190 gives the hand-verified zones ...', async ({ page }) =>
 | `e2e/navigation.spec.ts` | Every page loads with no console errors and no sideways scrolling (desktop and phone), the 404 page, home-page links, menu, disclaimer link, and the disabled donation button. |
 | `e2e/research.spec.ts` | The Researchers and References pages: each profile and its "does not claim" section, careful attribution wording, safe external links, jump and publication links that scroll to the right place, reference grouping, verification badges, and honest handling of sources with no link or year. |
 | `e2e/science.spec.ts` | The Science section: index, each article loading, required method-article sections, worked-example numbers matching the calculators, supporting-reference links that scroll to the right entry, previous/next links, no sideways scroll on phones, and the About page. |
+| `e2e/donation.spec.ts` | Donation, in whichever state the site was built: with a link, the button opens exactly that link in a new tab, safely, and the footer matches; without one, the button is disabled and nothing links to PayPal. Either way the site loads nothing from PayPal, collects no payment details, and gates no feature. The state is read from the page itself; `playwright.config.ts` loads your `.env` files so the exact link can be compared. |
 | `e2e/helpers.ts` | Small shared steps ("choose measured HRmax", "calculate") so tests stay short. |
 
-Unit tests live next to the code they check, in files ending `.test.ts` under `src/`. `src/data/dataIntegrity.test.ts` protects the content itself: every reference and profile link resolves, anything not read in full carries a disclosure note, profiles and articles contain no promotional wording, every `(Author, Year)` citation in an article matches a source listed for it, and portraits are complete. `src/components/science/ExampleBlock.test.ts` checks that the article examples show the hand-verified numbers.
+Unit tests live next to the code they check, in files ending `.test.ts` under `src/`. `src/data/dataIntegrity.test.ts` protects the content itself: every reference and profile link resolves, anything not read in full carries a disclosure note, profiles and articles contain no promotional wording, every `(Author, Year)` citation in an article matches a source listed for it, and portraits are complete. `src/utils/contrast.test.ts` keeps every text and background colour pair at WCAG AA contrast, read from the real Tailwind palette. `src/calculations/edgeCases.test.ts` covers extreme inputs (HRmax 300, age 1 and 120, tiny values) and properties over wide input grids. `src/components/science/ExampleBlock.test.ts` checks that the article examples show the hand-verified numbers.
 
 ## When a test fails
 

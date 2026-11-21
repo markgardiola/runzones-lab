@@ -93,11 +93,4 @@ test.describe('about page', () => {
     await expect(page.locator('main')).toContainText('provisional because no authoritative');
     await expect(page.locator('#disclaimer')).toBeVisible();
   });
-
-  test('without a configured donation URL, the donate button is disabled and nothing links to PayPal', async ({ page }) => {
-    test.skip(Boolean(process.env.VITE_PAYPAL_DONATION_URL), 'A donation URL is configured in this environment');
-    await page.goto('/about');
-    await expect(page.getByText('Donation link not yet configured').first()).toBeVisible();
-    await expect(page.locator('a[href*="paypal"]')).toHaveCount(0);
-  });
 });

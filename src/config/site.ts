@@ -1,4 +1,4 @@
-import { parseDonationUrl } from '../utils/donation';
+import { explainDonationUrl, parseDonationUrl } from '../utils/donation';
 
 export const SITE = {
   name: 'RunZones Lab',
@@ -8,4 +8,11 @@ export const SITE = {
 } as const;
 
 /** null until the owner supplies a valid PayPal URL via VITE_PAYPAL_DONATION_URL. */
-export const DONATION_URL: string | null = parseDonationUrl(import.meta.env.VITE_PAYPAL_DONATION_URL);
+const RAW_DONATION_URL = import.meta.env.VITE_PAYPAL_DONATION_URL;
+export const DONATION_URL: string | null = parseDonationUrl(RAW_DONATION_URL);
+
+// A typo in the link must not fail silently: the button would just stay disabled.
+const donationProblem = explainDonationUrl(RAW_DONATION_URL);
+if (donationProblem) {
+  console.warn(`VITE_PAYPAL_DONATION_URL is set but not accepted, so the donate button stays disabled. ${donationProblem}`);
+}

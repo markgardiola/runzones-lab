@@ -1,7 +1,7 @@
 import type { ComparisonResult } from '../../calculations/comparison';
 import { formatBpmRange } from '../../utils/format';
 import { buildSharedScale } from '../../utils/zoneViz';
-import { ZONE_BG } from '../common/zoneColors';
+import { ZONE_BG, ZONE_BG_FADED } from '../common/zoneColors';
 import { METHOD_ORDER, METHOD_STYLE } from '../comparison/methodStyle';
 
 /** All methods on one bpm axis. Methods are told apart by glyph, label and border style, not colour. */
@@ -37,8 +37,8 @@ export default function ComparisonChart({ result }: { result: ComparisonResult }
                       data-chart-method={m}
                       data-chart-zone={s.zone}
                       style={{ left: `${s.leftPct}%`, width: `${s.widthPct}%` }}
-                      className={`absolute inset-y-0 flex items-center justify-center overflow-hidden border-r border-paper text-xs font-semibold text-ink ${ZONE_BG[s.zone]} ${
-                        s.openStart || s.openEnd ? 'opacity-70' : ''
+                      className={`absolute inset-y-0 flex items-center justify-center overflow-hidden border-r border-paper text-xs font-semibold text-ink ${
+                        s.openStart || s.openEnd ? ZONE_BG_FADED[s.zone] : ZONE_BG[s.zone]
                       }`}
                       title={`${METHOD_STYLE[m].name}, Zone ${s.zone}`}
                     >

@@ -11,13 +11,13 @@ export default function DonationSection() {
         voluntary contribution.
       </p>
       <p className="mt-2 max-w-2xl text-sm text-muted">
-        Every calculator and article stays free. Payments are handled entirely on PayPal's own page;
-        this site never sees or stores payment details.
+        Every calculator and article stays free. The button opens PayPal's own page in a new tab; this site never
+        sees or stores payment details.
       </p>
       <div className="mt-6">
         {DONATION_URL ? (
           <a href={DONATION_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-            Donate via PayPal
+            Donate via PayPal.Me<span className="sr-only"> (opens PayPal in a new tab)</span>
           </a>
         ) : (
           <span className="btn btn-disabled" role="link" aria-disabled="true">

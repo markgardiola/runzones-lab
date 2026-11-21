@@ -63,8 +63,10 @@ export interface PortraitInfo {
   alt: string;
   /** Photographer or rights holder, as the licence requires. */
   credit: string;
-  /** e.g. "CC BY-SA 4.0", "Public domain", or "Used with permission". */
-  license: string;
+  /** 'cleared' = licence or permission confirmed; 'unverified' = rights not confirmed (shown honestly on the page). */
+  rights: 'cleared' | 'unverified';
+  /** e.g. "CC BY-SA 4.0", "Public domain", "Used with permission". Required when rights are cleared. */
+  license?: string;
   /** Page where the image and its licence or permission can be checked. */
   sourceUrl: string;
   width?: number;

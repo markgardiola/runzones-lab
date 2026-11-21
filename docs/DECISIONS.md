@@ -97,3 +97,11 @@ Users edit zones one by one (each zone's lower and upper percentage). Zones stay
 - The five-zones article reproduces Friel's RPE, description and time-to-exhaustion columns from the owner-supplied table. The owner confirmed the MHR and FTHR columns only; the other columns still need confirming against the book.
 - Portraits: a profile shows a photo only when `src/data/portraits.ts` holds a complete entry (self-hosted file, alt text, credit, licence, source link). Otherwise a neutral monogram placeholder is shown. No image was added because none with a verified licence was found; `docs/PORTRAITS.md` explains how to add one legally.
 - About page copy follows the brief's mission and transparency commitments and states nothing about the site owner.
+
+## P7. Donation, portraits and quality checks (Phase 7)
+- Donations use a plain link in `VITE_PAYPAL_DONATION_URL` (no PayPal scripts, no secrets). Accepted: https links on paypal.com or paypal.me and their sub-domains. A rejected link prints the reason in the browser console. Option A (Donate link from a Business account) is recommended over PayPal.Me, because PayPal's PayPal.Me terms restrict Personal links to friends-and-family use; see `docs/DONATIONS.md`.
+- Portraits carry an explicit `rights` field. `unverified` images are shown with "Licence not verified" and a source link, and `npm run preflight` lists them. The project never states a licence it has not been given.
+- `npm run portraits` converts originals in `portrait-source/` to 400 x 500 JPEGs (needs the `sharp` dev dependency).
+- Faded (open-ended) zone segments now fade only the background. Fading the whole element dropped the label contrast to 2.9:1 for Zone 5; it is now at least 7.6:1. A test keeps the whole palette at WCAG AA.
+- Calculator edge cases and wide-grid property tests added (extreme values, rounding monotonicity, contiguity).
+- Deployment steps are in `docs/DEPLOYMENT.md`. Lighthouse and keyboard-only checks are listed there for the owner to run, since they need a real browser on the owner's machine.

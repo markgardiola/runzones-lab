@@ -1,7 +1,7 @@
 import type { ZoneCalculation } from '../../types';
 import { buildVizSegments } from '../../utils/zoneViz';
 import { formatBpmRange, formatBpmRangeShort } from '../../utils/format';
-import { ZONE_BG } from '../common/zoneColors';
+import { ZONE_BG, ZONE_BG_FADED } from '../common/zoneColors';
 
 interface Props {
   calc: ZoneCalculation;
@@ -32,8 +32,8 @@ export default function ZoneBar({ calc }: Props) {
             key={s.zone}
             data-zone-segment={s.zone}
             style={{ width: `${s.widthPct}%` }}
-            className={`flex min-w-0 items-center justify-center overflow-hidden border-r border-paper text-sm font-semibold text-ink last:border-r-0 ${ZONE_BG[s.zone]} ${
-              s.openStart || s.openEnd ? 'opacity-70' : ''
+            className={`flex min-w-0 items-center justify-center overflow-hidden border-r border-paper text-sm font-semibold text-ink last:border-r-0 ${
+              s.openStart || s.openEnd ? ZONE_BG_FADED[s.zone] : ZONE_BG[s.zone]
             }`}
             title={`Zone ${s.zone}`}
           >

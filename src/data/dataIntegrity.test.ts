@@ -112,7 +112,9 @@ describe('portraits', () => {
     for (const [slug, p] of Object.entries(PORTRAITS)) {
       expect(`${slug}: ${RESEARCHER_PROFILES.some((x) => x.slug === slug)}`).toBe(`${slug}: true`);
       expect(p!.src.startsWith('/images/people/')).toBe(true);
-      expect(p!.alt.length > 0 && p!.credit.length > 0 && p!.license.length > 0).toBe(true);
+      expect(p!.alt.length > 0 && p!.credit.length > 0).toBe(true);
+      expect(['cleared', 'unverified'].includes(p!.rights)).toBe(true);
+      if (p!.rights === 'cleared') expect((p!.license ?? '').length > 0).toBe(true);
       expect(p!.sourceUrl.startsWith('https://')).toBe(true);
     }
   });

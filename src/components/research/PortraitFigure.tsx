@@ -42,7 +42,7 @@ export default function PortraitFigure({ name, portrait }: Props) {
         className="h-auto w-full border border-line"
       />
       <figcaption className="mt-2 text-xs leading-snug text-muted">
-        {portrait.credit} · {portrait.license} ·{' '}
+        {portrait.credit} · {portrait.rights === 'cleared' ? portrait.license : 'Licence not verified'} ·{' '}
         <a href={portrait.sourceUrl} target="_blank" rel="noopener noreferrer" className="link-underline">
           Source
         </a>

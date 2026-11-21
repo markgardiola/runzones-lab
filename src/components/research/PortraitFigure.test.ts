@@ -30,6 +30,7 @@ describe('PortraitFigure', () => {
           src: '/images/people/friel.jpg',
           alt: 'Portrait of Joe Friel',
           credit: 'Photo: A. Photographer',
+          rights: 'cleared',
           license: 'CC BY-SA 4.0',
           sourceUrl: 'https://commons.wikimedia.org/wiki/File:Example.jpg',
           width: 400,
@@ -45,5 +46,23 @@ describe('PortraitFigure', () => {
     expect(html.includes('CC BY-SA 4.0')).toBe(true);
     expect(html.includes('rel="noopener noreferrer"')).toBe(true);
     expect(html.includes('Portrait not yet available')).toBe(false);
+  });
+
+  it('an image whose rights are not verified says so on the page and still credits its source', () => {
+    const html = renderToStaticMarkup(
+      createElement(PortraitFigure, {
+        name: 'Joe Friel',
+        portrait: {
+          src: '/images/people/friel.jpg',
+          alt: 'Portrait of Joe Friel',
+          credit: 'Image from example.com',
+          rights: 'unverified',
+          sourceUrl: 'https://example.com/friel',
+        },
+      }),
+    );
+    expect(html.includes('Licence not verified')).toBe(true);
+    expect(html.includes('Image from example.com')).toBe(true);
+    expect(html.includes('href="https://example.com/friel"')).toBe(true);
   });
 });
