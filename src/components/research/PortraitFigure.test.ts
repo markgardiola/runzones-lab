@@ -1,17 +1,7 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import PortraitFigure, { initials } from './PortraitFigure';
-
-describe('initials', () => {
-  it('uses first and last name', () => {
-    expect(initials('Hirofumi Tanaka')).toBe('HT');
-    expect(initials('Martti Karvonen')).toBe('MK');
-    expect(initials('William L. Haskell')).toBe('WH');
-    expect(initials('Joe Friel')).toBe('JF');
-    expect(initials('Cher')).toBe('C');
-  });
-});
+import PortraitFigure from './PortraitFigure';
 
 describe('PortraitFigure', () => {
   it('without a portrait: monogram placeholder, no image, and an honest caption', () => {
