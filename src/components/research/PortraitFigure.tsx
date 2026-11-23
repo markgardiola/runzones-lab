@@ -1,12 +1,5 @@
 import type { PortraitInfo } from '../../types';
-
-export function initials(name: string): string {
-  const parts = name.split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return '';
-  const first = parts[0][0];
-  const last = parts.length > 1 ? parts[parts.length - 1][0] : '';
-  return (first + last).toUpperCase();
-}
+import { initials } from '../../utils/initials';
 
 interface Props {
   name: string;
@@ -44,7 +37,7 @@ export default function PortraitFigure({ name, portrait }: Props) {
       <figcaption className="mt-2 text-xs leading-snug text-muted">
         {portrait.credit} · {portrait.rights === 'cleared' ? portrait.license : 'Licence not verified'} ·{' '}
         <a href={portrait.sourceUrl} target="_blank" rel="noopener noreferrer" className="link-underline">
-          Source
+          Image sourceURL
         </a>
       </figcaption>
     </figure>
