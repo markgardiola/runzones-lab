@@ -55,4 +55,33 @@ describe('PortraitFigure', () => {
     expect(html.includes('Image from example.com')).toBe(true);
     expect(html.includes('href="https://example.com/friel"')).toBe(true);
   });
+
+  it('compact placeholder (Home cards): small monogram, no long caption', () => {
+    const html = renderToStaticMarkup(createElement(PortraitFigure, { name: 'Martti Karvonen', compact: true }));
+    expect(html.includes('MK')).toBe(true);
+    expect(html.includes('w-24')).toBe(true);
+    expect(html.includes('Portrait not yet available')).toBe(false);
+  });
+
+  it('compact image keeps its credit and licence line', () => {
+    const html = renderToStaticMarkup(
+      createElement(PortraitFigure, {
+        name: 'Joe Friel',
+        compact: true,
+        portrait: { src: '/images/people/friel.jpg', alt: 'Portrait of Joe Friel', credit: 'Photo: A', rights: 'cleared', license: 'CC BY 4.0', sourceUrl: 'https://example.com/x' },
+      }),
+    );
+    expect(html.includes('<img') && html.includes('Photo: A') && html.includes('CC BY 4.0')).toBe(true);
+  });
+
+  it('an empty credit leaves no stray separator before the licence note', () => {
+    const html = renderToStaticMarkup(
+      createElement(PortraitFigure, {
+        name: 'Joe Friel',
+        portrait: { src: '/images/people/friel.jpg', alt: 'Portrait of Joe Friel', credit: '', rights: 'unverified', sourceUrl: 'https://example.com/x' },
+      }),
+    );
+    expect(html.includes('Licence not verified · <a')).toBe(true);
+    expect(html.includes('> · ')).toBe(false);
+  });
 });
