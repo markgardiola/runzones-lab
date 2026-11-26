@@ -1,16 +1,18 @@
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import Home from './pages/Home';
-import Calculator from './pages/Calculator';
-import Compare from './pages/Compare';
-import Science from './pages/Science';
-import Researchers from './pages/Researchers';
-import References from './pages/References';
-import About from './pages/About';
-import ArticlePage from './pages/ArticlePage';
-import NotFound from './pages/NotFound';
-import { ARTICLES } from './data/articles';
 import { ZoneEditsProvider } from './hooks/ZoneEditsContext';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+
+// Every page except Home loads on demand, so a first visit downloads only the code it needs.
+const Calculator = lazy(() => import('./pages/Calculator'));
+const Compare = lazy(() => import('./pages/Compare'));
+const Science = lazy(() => import('./pages/Science'));
+const ArticlePage = lazy(() => import('./pages/ArticlePage'));
+const Researchers = lazy(() => import('./pages/Researchers'));
+const References = lazy(() => import('./pages/References'));
+const About = lazy(() => import('./pages/About'));
 
 export default function App() {
   return (
@@ -21,9 +23,7 @@ export default function App() {
           <Route path="calculator" element={<Calculator />} />
           <Route path="compare" element={<Compare />} />
           <Route path="science" element={<Science />} />
-          {ARTICLES.map((a) => (
-            <Route key={a.slug} path={`science/${a.slug}`} element={<ArticlePage slug={a.slug} />} />
-          ))}
+          <Route path="science/:slug" element={<ArticlePage />} />
           <Route path="researchers" element={<Researchers />} />
           <Route path="references" element={<References />} />
           <Route path="about" element={<About />} />

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
@@ -10,7 +11,9 @@ export default function Layout() {
       <ScrollToTop />
       <Header />
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
-        <Outlet />
+        <Suspense fallback={<p role="status" className="container-page py-24 text-muted">Loading…</p>}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
     </div>

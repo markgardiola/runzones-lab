@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ArticleBody from '../components/science/ArticleBody';
 import VerificationBadge from '../components/research/VerificationBadge';
 import { ARTICLES, getArticle } from '../data/articles';
@@ -7,7 +7,8 @@ import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import type { ReferenceEntry } from '../types';
 import NotFound from './NotFound';
 
-export default function ArticlePage({ slug }: { slug: string }) {
+export default function ArticlePage() {
+  const { slug = '' } = useParams();
   const article = getArticle(slug);
   useDocumentMeta(article ? article.title : 'Page not found', article?.summary);
   if (!article) return <NotFound />;

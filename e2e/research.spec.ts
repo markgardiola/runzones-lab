@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 test.describe('researchers page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/researchers');
+    await expect(page.getByRole('heading', { level: 1, name: 'Researchers and Coaches' })).toBeVisible();
   });
 
   test('shows a profile for each researcher and coach, kept apart by role', async ({ page }) => {
@@ -72,6 +73,7 @@ test('the footer disclaimer link scrolls to the disclaimer', async ({ page }) =>
 test.describe('reference library', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/references');
+    await expect(page.getByRole('heading', { level: 1, name: 'Scientific References' })).toBeVisible();
   });
 
   test('groups sources by type, peer-reviewed research first', async ({ page }) => {

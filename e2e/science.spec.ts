@@ -34,6 +34,7 @@ test.describe('science section', () => {
   test('each method article has every required section', async ({ page }) => {
     for (const slug of ['maximum-heart-rate-method', 'karvonen-heart-rate-reserve-method', 'threshold-field-testing-method']) {
       await page.goto(`/science/${slug}`);
+      await expect(page.getByRole('heading', { level: 1 })).toBeVisible(); // the page loads on demand
       const headings = await page.locator('article h2').allInnerTexts();
       for (const h of ['Historical background', 'The scientific concept', 'The formula', 'Example calculation', 'Advantages', 'Limitations', 'Practical applications', 'Supporting references']) {
         expect(headings, `${slug} is missing "${h}"`).toContain(h);

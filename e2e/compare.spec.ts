@@ -13,6 +13,8 @@ async function fillFull(page: Page) {
 test.describe('comparison dashboard', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/compare');
+    await expect(page).toHaveURL(/\/compare$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Compare the Three Methods' })).toBeVisible();
   });
 
   test('shows nothing until you compare; empty input shows every method as incomplete, with no invented zones', async ({ page }) => {
@@ -36,6 +38,8 @@ test.describe('comparison dashboard', () => {
   });
 
   test('full inputs give all three methods side by side with badges, assumptions and observations', async ({ page }) => {
+    await expect(page).toHaveURL(/\/compare$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Compare the Three Methods' })).toBeVisible();
     await fillFull(page);
     await compare(page).click();
     const table = page.locator('table');
@@ -53,6 +57,8 @@ test.describe('comparison dashboard', () => {
   });
 
   test('the chart uses one shared axis: the same bpm sits at the same position in every row', async ({ page }) => {
+    await expect(page).toHaveURL(/\/compare$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Compare the Three Methods' })).toBeVisible();
     await fillFull(page);
     await compare(page).click();
     const pos = (method: string, zone: number) =>
@@ -72,6 +78,8 @@ test.describe('comparison dashboard', () => {
   });
 
   test('inconsistent values block the comparison with a clear message', async ({ page }) => {
+    await expect(page).toHaveURL(/\/compare$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Compare the Three Methods' })).toBeVisible();
     await fillFull(page);
     await page.getByLabel(/Average heart rate over a 20-minute time trial/).fill('195');
     await compare(page).click();
@@ -80,6 +88,8 @@ test.describe('comparison dashboard', () => {
   });
 
   test('different HRmax sources per method are allowed and the assumptions are visible', async ({ page }) => {
+    await expect(page).toHaveURL(/\/compare$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Compare the Three Methods' })).toBeVisible();
     await fillFull(page);
     await page.getByLabel('Age (years)', { exact: true }).fill('40');
     await page.getByLabel('Use a different HRmax source for %MHR or %HRR').check();
@@ -92,6 +102,8 @@ test.describe('comparison dashboard', () => {
 
   test('on a phone the page does not scroll sideways; the table scrolls inside itself', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 900 });
+    await expect(page).toHaveURL(/\/compare$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Compare the Three Methods' })).toBeVisible();
     await fillFull(page);
     await compare(page).click();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
@@ -113,6 +125,8 @@ test('custom zones made on the Calculator page carry over to Compare, and can be
 
   // Client-side navigation keeps the in-memory edits (a full page load would not)
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Compare' }).click();
+  await expect(page).toHaveURL(/\/compare$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Compare the Three Methods' })).toBeVisible();
   await fillFull(page);
   await compare(page).click();
   await expect(page.locator('table')).toContainText(/custom zones/i);

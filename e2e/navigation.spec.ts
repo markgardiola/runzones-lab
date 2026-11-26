@@ -39,6 +39,18 @@ test.describe('every page loads cleanly', () => {
     await page.goto('/this-page-does-not-exist');
     await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
   });
+  test('pages load on demand: opening another page fetches new code instead of everything up front', async ({ page }) => {
+  const scripts = new Set<string>();
+  page.on('response', (r) => {
+    if (r.request().resourceType() === 'script') scripts.add(r.url());
+  });
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
+  const afterHome = scripts.size;
+  await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Calculator' }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Heart Rate Zone Calculator' })).toBeVisible();
+  expect(scripts.size, 'the calculator page should arrive as its own chunk').toBeGreaterThan(afterHome);
+  });
 });
 
 test.describe('navigation and links', () => {
